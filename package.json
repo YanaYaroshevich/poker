@@ -1,0 +1,68 @@
+{
+  "name": "@wix/poker-tdd-kata",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "author": {
+    "name": "YanaYaroshevich",
+    "email": "yanay@wix.com"
+  },
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "sideEffects": false,
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "registry": "https://npm.dev.wixpress.com/",
+    "versionBumpStrategy": "minor"
+  },
+  "scripts": {
+    "build": "yoshi-library build",
+    "start": "yoshi-library start",
+    "test": "yoshi-library test",
+    "lint": "yoshi-library lint"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts}": "yarn lint"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.0.0",
+    "tslib": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.4.0",
+    "@types/node": "^16.0.0",
+    "@wix/jest-yoshi-preset": "^6.0.0",
+    "@wix/yoshi-flow-library": "^6.0.0",
+    "husky": "~4.2.1",
+    "lint-staged": "^10.0.7",
+    "ts-jest": "^27.1.2",
+    "typescript": "~4.6.0"
+  },
+  "jest": {
+    "preset": "@wix/jest-yoshi-preset"
+  },
+  "eslintConfig": {
+    "extends": "@wix/eslint-config-yoshi"
+  },
+  "wix": {
+    "artifact": {
+      "groupId": "com.wixpress",
+      "artifactId": "poker-tdd-kata"
+    },
+    "validations": {
+      "source": [
+        "lint"
+      ]
+    }
+  },
+  "wallaby": {
+    "autoDetect": true
+  }
+}
