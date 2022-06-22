@@ -347,5 +347,23 @@ describe('Poker', () => {
       ).toBe(0);
     });
   });
-  describe('High card', () => {});
+  describe('High card', () => {
+    it('one high card', () => {
+      expect(
+        pokerJudge(
+          ['10S', '4D', '8C', 'JS', '6H'],
+          ['10C', '4H', '8H', 'QS', '6C'],
+        ),
+      ).toBe(2);
+    });
+
+    it('many high cards', () => {
+      expect(
+        pokerJudge(
+          ['10S', '4D', '8C', 'JS', '6H'],
+          ['10C', '3H', '8H', 'JC', '6C'],
+        ),
+      ).toBe(1);
+    });
+  });
 });

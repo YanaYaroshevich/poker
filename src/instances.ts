@@ -130,4 +130,7 @@ export const combinations: Combination[] = [
       .sort((a, b) => a - b);
     return [+pairVal[0], ...leftVals];
   }),
+  new Combination('High card', (hand: Card[]): number[] => {
+    return hand.map((el) => el.value).sort((a, b) => a - b);
+  }),
 ];
