@@ -20,8 +20,8 @@ export default function pokerJudge(hand1: string[], hand2: string[]): Number {
   const hand2Mapped: Card[] = hand2.map(parseCard);
 
   for (const comb of combinations) {
-    const hand1Res = comb.validate(hand1Mapped).sort((a, b) => a - b);
-    const hand2Res = comb.validate(hand2Mapped).sort((a, b) => a - b);
+    const hand1Res = comb.validate(hand1Mapped);
+    const hand2Res = comb.validate(hand2Mapped);
 
     if (hand1Res[0] !== -1 && hand2Res[0] !== -1) {
       for (let i = 0; i < hand1Res.length; i++) {

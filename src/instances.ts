@@ -38,6 +38,14 @@ export class Combination {
   }
 }
 
+function getMap(hand: Card[]): { [key: number]: number } {
+  const map: { [key: number]: number } = {};
+  for (const card of hand) {
+    map[card.value] = map[card.value] ? map[card.value] + 1 : 1;
+  }
+  return map;
+}
+
 export const combinations: Combination[] = [
   new Combination('Straight flush', (hand: Card[]): number[] => {
     hand.sort(suitsValueComparator);
@@ -63,10 +71,7 @@ export const combinations: Combination[] = [
     return [-1];
   }),
   new Combination('Full house', (hand: Card[]): number[] => {
-    const map: { [key: number]: number } = {};
-    for (const card of hand) {
-      map[card.value] = map[card.value] ? map[card.value] + 1 : 1;
-    }
+    const map = getMap(hand);
     const values = Object.entries(map);
     if (values.length > 2) {
       return [-1];
@@ -80,7 +85,7 @@ export const combinations: Combination[] = [
         return [-1];
       }
     }
-    return hand.map((e) => e.value);
+    return hand.map((e) => e.value).sort((a, b) => a - b);
   }),
   new Combination('Straight', (hand: Card[]): number[] => {
     hand.sort(valueComparator);
@@ -89,18 +94,40 @@ export const combinations: Combination[] = [
         return [-1];
       }
     }
-    return hand.map((e) => e.value);
+    return hand.map((e) => e.value).sort((a, b) => a - b);
   }),
   new Combination('Three of a kind', (hand: Card[]): number[] => {
-    const map: { [key: number]: number } = {};
-    for (const card of hand) {
-      map[card.value] = map[card.value] ? map[card.value] + 1 : 1;
-    }
+    const map = getMap(hand);
     const values = Object.entries(map);
     const threeVal = values.find((el) => el[1] === 3);
     if (!threeVal) {
       return [-1];
     }
     return [+threeVal[0]];
+  }),
+  new Combination('Two pairs', (hand: Card[]): number[] => {
+    const map = getMap(hand);
+    const values = Object.entries(map);
+    const pairVals = values.filter((el) => el[1] === 2);
+    if (pairVals.length !== 2) {
+      return [-1];
+    }
+    const leftVal = values.find(
+      (el) => el[0] !== pairVals[0][0] && el[0] !== pairVals[1][0],
+    );
+    return [+pairVals[0][0], +pairVals[1][0], +leftVal![0]];
+  }),
+  new Combination('Pair', (hand: Card[]): number[] => {
+    const map = getMap(hand);
+    const values = Object.entries(map);
+    const pairVal = values.find((el) => el[1] === 2);
+    if (!pairVal) {
+      return [-1];
+    }
+    const leftVals = values
+      .filter((el) => el[0] !== pairVal[0])
+      .map((e) => +e[0])
+      .sort((a, b) => a - b);
+    return [+pairVal[0], ...leftVals];
   }),
 ];

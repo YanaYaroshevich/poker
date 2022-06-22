@@ -256,7 +256,7 @@ describe('Poker', () => {
     });
   });
   describe('Three of a kind', () => {
-    it('one three of a kind', () => {
+    it('one "three of a kind"', () => {
       expect(
         pokerJudge(
           ['10S', '10D', 'JC', '9S', '10H'],
@@ -281,4 +281,71 @@ describe('Poker', () => {
       ).toBe(1);
     });
   });
+  describe('Two pairs', () => {
+    it('one "two pairs"', () => {
+      expect(
+        pokerJudge(
+          ['10S', '10D', 'JC', 'JS', '6H'],
+          ['9D', '10C', '6D', 'QD', 'KD'],
+        ),
+      ).toBe(1);
+    });
+    it('higher two pairs', () => {
+      expect(
+        pokerJudge(
+          ['2H', '3D', '3S', '9C', '9D'],
+          ['3C', '3H', '6S', '8C', '8H'],
+        ),
+      ).toBe(1);
+    });
+    it('same two pairs', () => {
+      expect(
+        pokerJudge(
+          ['3S', '3D', '7S', '8S', '8D'],
+          ['3C', '3H', '6S', '8C', '8H'],
+        ),
+      ).toBe(1);
+
+      expect(
+        pokerJudge(
+          ['3S', '3D', '6C', '8S', '8D'],
+          ['3C', '3H', '6S', '8C', '8H'],
+        ),
+      ).toBe(0);
+    });
+  });
+  describe('Pair', () => {
+    it('one pair', () => {
+      expect(
+        pokerJudge(
+          ['10S', '10D', '8C', 'JS', '6H'],
+          ['9D', '10C', '6D', 'QD', 'KD'],
+        ),
+      ).toBe(1);
+    });
+    it('higher pair', () => {
+      expect(
+        pokerJudge(
+          ['2H', '3D', '4S', '9C', '9D'],
+          ['3C', '4H', '6S', '8C', '8H'],
+        ),
+      ).toBe(1);
+    });
+    it('same pair', () => {
+      expect(
+        pokerJudge(
+          ['3S', '3D', '7S', '9S', '8D'],
+          ['3C', '3H', '6S', '9C', '8H'],
+        ),
+      ).toBe(1);
+
+      expect(
+        pokerJudge(
+          ['3S', '3D', '6C', '9S', '8D'],
+          ['3C', '3H', '6S', '9C', '8H'],
+        ),
+      ).toBe(0);
+    });
+  });
+  describe('High card', () => {});
 });
