@@ -91,4 +91,16 @@ export const combinations: Combination[] = [
     }
     return hand.map((e) => e.value);
   }),
+  new Combination('Three of a kind', (hand: Card[]): number[] => {
+    const map: { [key: number]: number } = {};
+    for (const card of hand) {
+      map[card.value] = map[card.value] ? map[card.value] + 1 : 1;
+    }
+    const values = Object.entries(map);
+    const threeVal = values.find((el) => el[1] === 3);
+    if (!threeVal) {
+      return [-1];
+    }
+    return [+threeVal[0]];
+  }),
 ];

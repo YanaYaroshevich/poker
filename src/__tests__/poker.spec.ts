@@ -255,4 +255,30 @@ describe('Poker', () => {
       ).toBe(0);
     });
   });
+  describe('Three of a kind', () => {
+    it('one three of a kind', () => {
+      expect(
+        pokerJudge(
+          ['10S', '10D', 'JC', '9S', '10H'],
+          ['9D', '10C', '6D', 'QD', 'KD'],
+        ),
+      ).toBe(1);
+
+      expect(
+        pokerJudge(
+          ['10S', '10D', '9C', 'JS', '10H'],
+          ['6C', '8C', '8H', '5S', '6H'],
+        ),
+      ).toBe(1);
+    });
+    it('higher three of a kind', () => {
+      // higher triple wins
+      expect(
+        pokerJudge(
+          ['10S', '10D', '9C', 'JS', '10H'],
+          ['6C', 'JD', 'KH', '6S', '6H'],
+        ),
+      ).toBe(1);
+    });
+  });
 });
