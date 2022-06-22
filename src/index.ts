@@ -1,3 +1,3 @@
-import Counter from './counter';
+import pokerJudge from './poker';
 
-export default new Counter();
+export default pokerJudge;
